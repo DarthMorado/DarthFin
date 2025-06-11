@@ -1,5 +1,9 @@
+using DarthFin.DB;
+using DarthFin.DB.Repositories;
+using DarthFin.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.EntityFrameworkCore;
 
 namespace DarthFin
 {
@@ -25,6 +29,17 @@ namespace DarthFin
                 options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
             });
 
+            ConfigureServices(builder.Services, builder.Configuration);
+
+            builder.WebHost.ConfigureKestrel(options =>
+            {
+                options.ListenAnyIP(4200); // HTTP
+                options.ListenAnyIP(4201, listenOptions =>
+                {
+                    listenOptions.UseHttps();
+                });
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -32,10 +47,10 @@ namespace DarthFin
             {
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                //app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -47,6 +62,22 @@ namespace DarthFin
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
+        }
+
+        public static void ConfigureServices(IServiceCollection services, IConfiguration config)
+        {
+            ConfigureDatabase(services, config);
+
+            services.AddAutoMapper(typeof(MappingProfile));
+
+            services.AddScoped<IUserService, UserService>();
+        }
+
+        public static void ConfigureDatabase(IServiceCollection services, IConfiguration config)
+        {
+            services.AddDbContext<Database>(options =>
+                options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
+            services.AddScoped<IUserRepository, UserRepository>();
         }
     }
 }
