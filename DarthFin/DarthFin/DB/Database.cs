@@ -23,7 +23,11 @@ namespace DarthFin.DB
                 .Property(e => e.Id)
                 .HasColumnName("USR_ID");
 
-           
+            modelBuilder.Entity<FileEntity>()
+                .Property(e => e.Id)
+                .HasColumnName("FIL_ID");
+
+            
         }
     }
 }

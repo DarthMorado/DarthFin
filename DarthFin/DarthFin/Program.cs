@@ -71,6 +71,7 @@ namespace DarthFin
             services.AddAutoMapper(typeof(MappingProfile));
 
             services.AddScoped<IUserService, UserService>();
+
         }
 
         public static void ConfigureDatabase(IServiceCollection services, IConfiguration config)
@@ -78,6 +79,8 @@ namespace DarthFin
             services.AddDbContext<Database>(options =>
                 options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IFilesRepository, FilesRepository>();
+            
         }
     }
 }

@@ -1,0 +1,26 @@
+﻿@model FileListModel
+@{
+    ViewData["Title"] = "Files List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>All Files</h1>
+<div class="buttons">
+    <button asp-controller="Files" asp-action="UploadFile">Upload</button>
+</div>
+<div>
+    <table>
+        <tr>
+            <th>Name</th>
+        </tr>
+        @foreach (var file in Model.Files)
+        {
+            <tr>
+                <td>@file.Name</td>
+            </tr>
+        }
+    </table>
+</div>
+
+
+
