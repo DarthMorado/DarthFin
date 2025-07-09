@@ -1,0 +1,40 @@
+﻿<div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="uploadForm" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadModalLabel">Upload File</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="file" name="file" class="form-control" required />
+                    <div id="uploadResult" class="mt-3 text-success"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Process</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("uploadForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        var formData = new FormData(this);
+
+        fetch('/Files/UploadFile', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text()) // Or .json() if you return JSON
+        .then(data => {
+            document.getElementById("uploadResult").innerText = data;
+        })
+        .catch(error => {
+            document.getElementById("uploadResult").innerText = "Upload failed.";
+            console.error(error);
+        });
+    });
+</script>

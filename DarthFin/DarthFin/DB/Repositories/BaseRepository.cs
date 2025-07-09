@@ -11,6 +11,7 @@ namespace DarthFin.DB.Repositories
         Task CreateAsync(T entity);
         void Update(T entity);
         void Delete(T entity);
+        Task Delete(int id);
         Task SaveChangesAsync();
     }
 
@@ -48,8 +49,16 @@ namespace DarthFin.DB.Repositories
         public void Delete(T entity)
         {
             _dbSet.Remove(entity);
+        }
 
-
+        public async Task Delete(int id)
+        {
+            T? entity = await GetByIdAsync(id);
+            if(entity != null)
+            {
+                _dbSet.Remove(entity);
+            }
+            
         }
 
         public async Task SaveChangesAsync()

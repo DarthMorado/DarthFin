@@ -17,6 +17,8 @@ namespace DarthFin
 
             CreateMap<FileEntity, FileDto>();
             CreateMap<FileEntity, FileModel>();
+
+            //CreateMap<FinEntryDto, Fil>();
         }
     }
 }

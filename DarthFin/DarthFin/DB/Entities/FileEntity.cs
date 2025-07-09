@@ -12,5 +12,7 @@ namespace DarthFin.DB.Entities
         public UserEntity User { get; set; }
         [Column("FIL_USR_Id")]
         public int UserId { get; set; }
+        [Column("FIL_Is_Processed")]
+        public bool IsProcessed { get; set; }
     }
 }

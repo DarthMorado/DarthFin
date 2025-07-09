@@ -71,7 +71,8 @@ namespace DarthFin
             services.AddAutoMapper(typeof(MappingProfile));
 
             services.AddScoped<IUserService, UserService>();
-
+            services.AddScoped<IFilesService, FilesService>();
+            
         }
 
         public static void ConfigureDatabase(IServiceCollection services, IConfiguration config)

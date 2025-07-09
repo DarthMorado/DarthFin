@@ -6,17 +6,28 @@
 
 <h1>All Files</h1>
 <div class="buttons">
-    <button asp-controller="Files" asp-action="UploadFile">Upload</button>
+    <form asp-controller="Files" asp-action="UploadFile" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" />
+        <button type="submit">Upload</button>
+    </form>
 </div>
 <div>
     <table>
         <tr>
             <th>Name</th>
+            <th>Is Processed</th>
+            <th>Delete</th>
+            <th>Process</th>
         </tr>
         @foreach (var file in Model.Files)
         {
             <tr>
-                <td>@file.Name</td>
+                <form asp-controller="Files">
+                    <td>@file.Name</td>
+                    <td>@file.IsProcessed</td>
+                    <td><button asp-action="Delete" asp-route-id="@file.Id">Delete</button></td>
+                    <td><button asp-action="Process" asp-route-id="@file.Id">Process</button></td>
+                </form>
             </tr>
         }
     </table>

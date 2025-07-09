@@ -33,7 +33,7 @@
                     {
                         <ul class="navbar-nav ms-auto">
                             <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Image" asp-action="Upload">Upload</a>
+                                <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#uploadModal">Upload</a>
                             </li>
                         </ul>
                         <ul class="navbar-nav ms-auto">
@@ -59,7 +59,8 @@
             @RenderBody()
         </main>
     </div>
-
+    
+    <partial name="_ModalUploadFile" />
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2025 - DarthFin - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
@@ -68,6 +69,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
