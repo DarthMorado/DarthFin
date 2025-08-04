@@ -45,9 +45,9 @@ namespace DarthFin.Services
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 var records = csv.GetRecords<dynamic>();
-                foreach (var record in records)
+                foreach (var sbrecord in records)
                 {
-                    // whatever u want
+                    var record = _mapper.Map<FinEntryDto>(sbrecord);
                 }
             }
         }
@@ -60,17 +60,22 @@ namespace DarthFin.Services
                 {
                     BadDataFound = null, // Ignore bad data
                     MissingFieldFound = null, // Optional: ignore missing fields
-                    HeaderValidated = null    // Optional: ignore header mismatches
+                    HeaderValidated = null,    // Optional: ignore header mismatches
+                    Delimiter = ";"
                 };
 
                 using var reader = new StringReader(data);
                 using var csv = new CsvReader(reader, config);
+                csv.Context.RegisterClassMap<SwedbankCsvEntryDto.Map>();
 
-                var records = csv.GetRecords<dynamic>().ToList();
-                foreach (var record in records)
+                var records = csv.GetRecords<SwedbankCsvEntryDto>().ToList();
+                foreach (var sbrecord in records)
                 {
                     // whatever u want
-
+                    var record = _mapper.Map<FinEntryDto>(sbrecord);
+                    //move this on upper lvl
+                    //add real date
+                    //add from file / user
                 }
 
             }
