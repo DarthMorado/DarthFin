@@ -3,7 +3,7 @@ using DarthFin.DB.Entities;
 using DarthFin.Dto;
 using DarthFin.Models;
 
-namespace DarthFin
+namespace DarthFin.Mapping
 {
     public class MappingProfile : Profile
     {

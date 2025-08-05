@@ -10,8 +10,7 @@ namespace DarthFin.Services
 {
     public interface IFilesService
     {
-        //public Task<List<string[]>> ReadCsv(IFormFile file);
-        public Task<List<string[]>> ReadCsv(string data);
+        public List<T> ReadCsv<T, M>(string data) where M : ClassMap<T>;
     }
 
     public class FilesService : IFilesService
@@ -37,23 +36,9 @@ namespace DarthFin.Services
             return users;
         }
 
-        private void Foo()
+        public List<T> ReadCsv<T,M>(string data) where M : ClassMap<T>
         {
-            
-
-            using (var reader = new StreamReader("path\\to\\file.csv"))
-            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-            {
-                var records = csv.GetRecords<dynamic>();
-                foreach (var sbrecord in records)
-                {
-                    var record = _mapper.Map<FinEntryDto>(sbrecord);
-                }
-            }
-        }
-
-        public async Task<List<string[]>> ReadCsv(string data)
-        {
+            var result = new List<T>();
             try
             {
                 var config = new CsvConfiguration(CultureInfo.InvariantCulture)
@@ -66,43 +51,16 @@ namespace DarthFin.Services
 
                 using var reader = new StringReader(data);
                 using var csv = new CsvReader(reader, config);
-                csv.Context.RegisterClassMap<SwedbankCsvEntryDto.Map>();
+                csv.Context.RegisterClassMap<M>();
 
-                var records = csv.GetRecords<SwedbankCsvEntryDto>().ToList();
-                foreach (var sbrecord in records)
-                {
-                    // whatever u want
-                    var record = _mapper.Map<FinEntryDto>(sbrecord);
-                    //move this on upper lvl
-                    //add real date
-                    //add from file / user
-                }
-
+                result = csv.GetRecords<T>().ToList();
             }
             catch(Exception ex)
             {
-                Console.WriteLine(ex.Message);
+
             }
-            return null;
-            //var lines = data.Split(';');
-
-            //if (lines is null || lines.Count() == 0)
-            //{
-            //    return null;
-            //}
-
-            //var headers = await ReadCsvLine(lines[0]);
-            //if (headers is null || headers.Count() == 0);
-
-            //var result = new List<string[]>();
-
-            //return result;
+            return result;
         }
-
-       //private async Task<List<string>> ReadCsvLine(string data)
-       // {
-
-       // }
 
     }
 }

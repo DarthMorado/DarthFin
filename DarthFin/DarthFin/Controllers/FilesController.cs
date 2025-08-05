@@ -1,10 +1,14 @@
 ﻿using AutoMapper;
 using DarthFin.DB.Entities;
 using DarthFin.DB.Repositories;
+using DarthFin.Dto;
+using DarthFin.Mapping.CSV;
 using DarthFin.Models;
 using DarthFin.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 using System.Security.Claims;
+using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace DarthFin.Controllers
@@ -51,11 +55,33 @@ namespace DarthFin.Controllers
         public async Task<IActionResult> ProcessAsync(int id)
         {
             var file = await _filesRepository.GetByIdAsync(id);
+            
+            if (file != null)
+            {
+                var stringContent = System.Text.Encoding.UTF8.GetString(file.Content);
 
-            var stringContent = System.Text.Encoding.UTF8.GetString(file.Content);
+                var swedbankEntries = _filesService.ReadCsv<SwedbankCsvEntryDto, SwedbankCsvMapping>(stringContent);
+                var entries = _mapper.Map<List<FinEntryDto>>(swedbankEntries);
 
-            _filesService.ReadCsv(stringContent);
+                foreach (var entry in entries)
+                {
+                    entry.FromFileId = id;
+                    entry.UserId = file.UserId;
+                    //entry.RealDate
+                    string pattern = @"\d{1,2}\.\d{1,2}\.\d{4}";
+                    Match match = Regex.Match(entry.Information, pattern);
 
+                    if (match.Success)
+                    {
+                        string dateString = match.Value;
+                        
+                        if (DateTime.TryParseExact(dateString, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date))
+                        {
+                            entry.RealDate = date;
+                        }
+                    }
+                }
+            }
             return RedirectToAction("List", "Files");
         }
 

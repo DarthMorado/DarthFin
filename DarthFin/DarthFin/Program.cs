@@ -1,5 +1,6 @@
 using DarthFin.DB;
 using DarthFin.DB.Repositories;
+using DarthFin.Mapping;
 using DarthFin.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;

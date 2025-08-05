@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DarthFramework", "DarthFramework\DarthFramework.csproj", "{FA34311E-C316-4768-B9D1-7C4CF7DF8DA2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DarthLib", "DarthLib\DarthLib.csproj", "{50C03493-0B43-42A4-87ED-5573A0041F55}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Telegram", "Telegram", "{97F0CE3D-A2D1-400F-94ED-CB46DEDAEED5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DarthTgEcho", "DarthTgEcho\DarthTgEcho.csproj", "{6193B30B-725A-40B1-A79A-BFF6FDC0CB80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DarthBotExample", "DarthBotExample\DarthBotExample.csproj", "{F09D72B6-5F08-49E6-9DA4-4E13B21F46F1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FA34311E-C316-4768-B9D1-7C4CF7DF8DA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA34311E-C316-4768-B9D1-7C4CF7DF8DA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA34311E-C316-4768-B9D1-7C4CF7DF8DA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA34311E-C316-4768-B9D1-7C4CF7DF8DA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50C03493-0B43-42A4-87ED-5573A0041F55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50C03493-0B43-42A4-87ED-5573A0041F55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50C03493-0B43-42A4-87ED-5573A0041F55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50C03493-0B43-42A4-87ED-5573A0041F55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6193B30B-725A-40B1-A79A-BFF6FDC0CB80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6193B30B-725A-40B1-A79A-BFF6FDC0CB80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6193B30B-725A-40B1-A79A-BFF6FDC0CB80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6193B30B-725A-40B1-A79A-BFF6FDC0CB80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F09D72B6-5F08-49E6-9DA4-4E13B21F46F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F09D72B6-5F08-49E6-9DA4-4E13B21F46F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F09D72B6-5F08-49E6-9DA4-4E13B21F46F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F09D72B6-5F08-49E6-9DA4-4E13B21F46F1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{97F0CE3D-A2D1-400F-94ED-CB46DEDAEED5} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{6193B30B-725A-40B1-A79A-BFF6FDC0CB80} = {97F0CE3D-A2D1-400F-94ED-CB46DEDAEED5}
+		{F09D72B6-5F08-49E6-9DA4-4E13B21F46F1} = {97F0CE3D-A2D1-400F-94ED-CB46DEDAEED5}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4BDBAA13-16A2-4FEC-95AB-FCB65AF354F0}
+	EndGlobalSection
+EndGlobal
