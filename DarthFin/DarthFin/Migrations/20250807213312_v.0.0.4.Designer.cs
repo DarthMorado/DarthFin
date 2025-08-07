@@ -4,6 +4,7 @@ using DarthFin.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DarthFin.Migrations
 {
     [DbContext(typeof(Database))]
-    partial class DatabaseModelSnapshot : ModelSnapshot
+    [Migration("20250807213312_v.0.0.4")]
+    partial class v004
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,15 +43,9 @@ namespace DarthFin.Migrations
                         .HasColumnType("int")
                         .HasColumnName("CAT_Parent_CAT_Id");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int")
-                        .HasColumnName("CAT_USR_Id");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ParentCategoryId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("CAT_Categories");
                 });
@@ -116,13 +113,7 @@ namespace DarthFin.Migrations
                         .WithMany()
                         .HasForeignKey("ParentCategoryId");
 
-                    b.HasOne("DarthFin.DB.Entities.UserEntity", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
                     b.Navigation("ParentCategory");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DarthFin.DB.Entities.FileEntity", b =>

@@ -14,6 +14,9 @@ namespace DarthFin.Mapping
             CreateMap<UserDto, UserEntity>();
             CreateMap<UserEntity, UserDto>();
 
+            CreateMap<CategoryDto, CategoryEntity>();
+            CreateMap<CategoryEntity, CategoryDto>();
+
             CreateMap<FileEntity, FileDto>();
             CreateMap<FileEntity, FileModel>();
 

@@ -73,7 +73,7 @@ namespace DarthFin
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IFilesService, FilesService>();
-            
+            services.AddScoped<ICategoriesService, CategoriesService>();
         }
 
         public static void ConfigureDatabase(IServiceCollection services, IConfiguration config)
@@ -82,7 +82,8 @@ namespace DarthFin
                 options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IFilesRepository, FilesRepository>();
-            
+            services.AddScoped<ICategoriesRepository, CategoriesRepository>();
+
         }
     }
 }

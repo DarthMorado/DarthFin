@@ -13,6 +13,8 @@ namespace DarthFin.DB
         }
 
         public DbSet<UserEntity> Users { get; set; }
+        public DbSet<FileEntity> Files { get; set; }
+        public DbSet<CategoryEntity> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,7 +29,10 @@ namespace DarthFin.DB
                 .Property(e => e.Id)
                 .HasColumnName("FIL_ID");
 
-            
+            modelBuilder.Entity<CategoryEntity>()
+                .Property(e => e.Id)
+                .HasColumnName("CAT_ID");
+
         }
     }
 }
