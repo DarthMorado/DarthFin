@@ -27,6 +27,7 @@
                     <td>@file.IsProcessed</td>
                     <td><button asp-action="Delete" asp-route-id="@file.Id">Delete</button></td>
                     <td><button asp-action="Process" asp-route-id="@file.Id">Process</button></td>
+                <td><button asp-action="FileEntries" asp-route-id="@file.Id">File Entries</button></td>
                 </form>
             </tr>
         }

@@ -35,6 +35,30 @@ namespace DarthFin.Controllers
                 model.Categories = categories;
                 
             }
+
+            //test'
+            model = new CategoriesListModel()
+            {
+                Categories = new List<Dto.CategoryDto>()
+                {
+                    new Dto.CategoryDto()
+                    {
+                        Id=1,
+                        Name="Name",
+                    },
+                    new Dto.CategoryDto()
+                    {
+                        Id=2,
+                        Name="Name 2",
+                    },
+                    new Dto.CategoryDto()
+                    {
+                        Id=3,
+                        Name="Name 3",
+                    }
+                }
+            };
+
             return View(model);
         }
     }

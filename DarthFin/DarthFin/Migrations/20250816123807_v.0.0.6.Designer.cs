@@ -4,6 +4,7 @@ using DarthFin.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DarthFin.Migrations
 {
     [DbContext(typeof(Database))]
-    partial class DatabaseModelSnapshot : ModelSnapshot
+    [Migration("20250816123807_v.0.0.6")]
+    partial class v006
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,34 +100,26 @@ namespace DarthFin.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Account")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("FIN_Account");
 
-                    b.Property<double?>("Amount")
-                        .HasColumnType("float")
-                        .HasColumnName("FIN_Prices");
-
                     b.Property<string>("Comment")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("FIN_Comment");
 
-                    b.Property<string>("Correspondent")
+                    b.Property<string>("Company")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("FIN_Company");
 
-                    b.Property<string>("DocumentNumber")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("FIN_Document_Number");
-
-                    b.Property<DateTime?>("EntryDate")
+                    b.Property<DateTime>("EntryDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("FIN_Entry_Date");
 
-                    b.Property<int>("EntryType")
-                        .HasColumnType("int")
-                        .HasColumnName("FIN_Entry_Type");
-
                     b.Property<string>("ExternalId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("FIN_External_Id");
 
@@ -133,12 +128,17 @@ namespace DarthFin.Migrations
                         .HasColumnName("FIN_FIL_Id");
 
                     b.Property<string>("Information")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("FIN_Information");
 
-                    b.Property<bool?>("IsExpense")
+                    b.Property<bool>("IsExpense")
                         .HasColumnType("bit")
                         .HasColumnName("FIN_Is_Expense");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float")
+                        .HasColumnName("FIN_Prices");
 
                     b.Property<DateTime?>("RealDate")
                         .HasColumnType("datetime2")

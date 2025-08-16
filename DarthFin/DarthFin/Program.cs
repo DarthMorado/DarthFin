@@ -82,6 +82,7 @@ namespace DarthFin
                 options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IFilesRepository, FilesRepository>();
+            services.AddScoped<IFinEntryRepository, FinEntryRepository>();
             services.AddScoped<ICategoriesRepository, CategoriesRepository>();
 
         }

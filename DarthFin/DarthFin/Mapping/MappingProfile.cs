@@ -20,6 +20,9 @@ namespace DarthFin.Mapping
             CreateMap<FileEntity, FileDto>();
             CreateMap<FileEntity, FileModel>();
 
+            CreateMap<FinEntryEntity, FinEntryDto>();
+            CreateMap<FinEntryDto, FinEntryEntity>();
+
             CreateMap<SwedbankCsvEntryDto, FinEntryDto>()
                 .ForMember(d => d.Account, x => x.MapFrom(src => src.AccountNumber))
                 .ForMember(d => d.EntryType, x => x.MapFrom(src =>

@@ -54,35 +54,20 @@ namespace DarthFin.Controllers
 
         public async Task<IActionResult> ProcessAsync(int id)
         {
-            var file = await _filesRepository.GetByIdAsync(id);
-            
-            if (file != null)
-            {
-                var stringContent = System.Text.Encoding.UTF8.GetString(file.Content);
-
-                var swedbankEntries = _filesService.ReadCsv<SwedbankCsvEntryDto, SwedbankCsvMapping>(stringContent);
-                var entries = _mapper.Map<List<FinEntryDto>>(swedbankEntries);
-
-                foreach (var entry in entries)
-                {
-                    entry.FromFileId = id;
-                    entry.UserId = file.UserId;
-                    //entry.RealDate
-                    string pattern = @"\d{1,2}\.\d{1,2}\.\d{4}";
-                    Match match = Regex.Match(entry.Information, pattern);
-
-                    if (match.Success)
-                    {
-                        string dateString = match.Value;
-                        
-                        if (DateTime.TryParseExact(dateString, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date))
-                        {
-                            entry.RealDate = date;
-                        }
-                    }
-                }
-            }
+            await _filesService.ProcessFileAsync(id);
+    
             return RedirectToAction("List", "Files");
+        }
+
+        public async Task<IActionResult> FileEntriesAsync(int id)
+        {
+            var data = await _filesService.GetFinEntriesAsync(id);
+            FinEntriesListModel model = new()
+            {
+                FinEntries = data
+            };
+
+            return View("FinEntriesList", model);
         }
 
         public async Task<IActionResult> DeleteAsync(int id)
