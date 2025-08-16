@@ -1,5 +1,4 @@
-﻿using DarthFin.Dto;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DarthFin.DB.Entities
 {
@@ -9,7 +8,7 @@ namespace DarthFin.DB.Entities
         [Column("FIN_Prices")]
         public double? Amount { get; set; }
         [Column("FIN_Entry_Type")]
-        public FinEntryType EntryType { get; set; }
+        public int EntryType { get; set; } //FinEntryType
         [Column("FIN_Comment")]
         public string? Comment { get; set; }
         [Column("FIN_Account")]

@@ -5,6 +5,7 @@ using DarthFin.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DarthFin
 {
@@ -69,7 +70,10 @@ namespace DarthFin
         {
             ConfigureDatabase(services, config);
 
-            services.AddAutoMapper(typeof(MappingProfile));
+            services.AddAutoMapper(o =>
+            {
+                o.AddProfile<MappingProfile>();
+            });
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IFilesService, FilesService>();

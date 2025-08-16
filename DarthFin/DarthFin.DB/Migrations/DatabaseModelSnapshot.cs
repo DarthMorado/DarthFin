@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace DarthFin.Migrations
+namespace DarthFin.DB.Migrations
 {
     [DbContext(typeof(Database))]
     partial class DatabaseModelSnapshot : ModelSnapshot
@@ -17,7 +17,7 @@ namespace DarthFin.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.17")
+                .HasAnnotation("ProductVersion", "9.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);

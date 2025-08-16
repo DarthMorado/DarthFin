@@ -1,5 +1,6 @@
 ﻿using DarthFin.DB.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 

@@ -9,18 +9,18 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace DarthFin.Migrations
+namespace DarthFin.DB.Migrations
 {
     [DbContext(typeof(Database))]
-    [Migration("20250816151038_v.0.0.8")]
-    partial class v008
+    [Migration("20250816211143_v.0.1.0")]
+    partial class v010
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.17")
+                .HasAnnotation("ProductVersion", "9.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
