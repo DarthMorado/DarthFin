@@ -78,6 +78,8 @@ namespace DarthFin
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IFilesService, FilesService>();
             services.AddScoped<ICategoriesService, CategoriesService>();
+            services.AddScoped<IGraphService, GraphService>();
+            
         }
 
         public static void ConfigureDatabase(IServiceCollection services, IConfiguration config)

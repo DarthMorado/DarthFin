@@ -1,0 +1,28 @@
+﻿<canvas id="stackedBar"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('stackedBar').getContext('2d');
+
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], // ← can come from
+        datasets: [
+          { label: 'Product A', data: [12, 19, 13, 15, 22, 18], backgroundColor: '#4e79a7' },
+          { label: 'Product B', data: [7,  5,  9,  6,  4,  8 ], backgroundColor: '#f28e2b' },
+          { label: 'Product C', data: [3,  6,  4,  8,  5,  6 ], backgroundColor: '#e15759' }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: { stacked: true },
+          y: { stacked: true, beginAtZero: true }
+        },
+        plugins: {
+          tooltip: { mode: 'index', intersect: false },
+          legend: { position: 'top' }
+        }
+      }
+    });
+</script>

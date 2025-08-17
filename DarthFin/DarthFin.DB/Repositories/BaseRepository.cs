@@ -1,6 +1,7 @@
 ﻿using DarthFin.DB.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace DarthFin.DB.Repositories
 {
@@ -8,6 +9,7 @@ namespace DarthFin.DB.Repositories
     {
         Task<T?> GetByIdAsync(int id);
         Task<IEnumerable<T>> GetAllAsync();
+        Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>> filter);
         Task CreateAsync(T entity);
         void Update(T entity);
         void Delete(T entity);
@@ -34,6 +36,18 @@ namespace DarthFin.DB.Repositories
         public async Task<IEnumerable<T>> GetAllAsync()
         {
             return await _dbSet.ToListAsync();
+        }
+
+        public async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>>? filter)
+        {
+            IQueryable<T> query = _dbSet;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            return await query.ToListAsync();
         }
 
         public async Task CreateAsync(T entity)

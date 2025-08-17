@@ -1,40 +1,52 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using DarthFin.Models.Graph
+@using System.Text.Json
+
+@model BarGraphModel
+
 <div>
-    <canvas id="myChart"></canvas>
+    <p>@Model.Name</p>
+</div>
+
+<div>
+    <canvas id="graphChart"></canvas>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+@{
+    //var palette = new[] { "#4e79a7", "#f28e2b", "#e15759", "#76b7b2", "#59a14f", "#edc948" };
+    var ds = (Model.Categories ?? new List<GraphValues>())
+        .Select((c, i) => new
+        {
+            label = c.Name,
+            data = c.Values ?? new List<double>(),
+            backgroundColor = c.Color
+        });
+    var dsJson = JsonSerializer.Serialize(ds);
+}
+
 <script>
-    const ctx = document.getElementById('myChart');
+    const ctx = document.getElementById('graphChart');
+
+    var labels = @Html.Raw(JsonSerializer.Serialize(Model.Headers));
+    var datasets = @Html.Raw(dsJson);
 
     new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ["January", "February", "March", "April", "May", "June"],
-                datasets: [{
-                    label: "Sales ($)",
-                    data: [120, 190, 300, 250, 400, 320],
-                    borderColor: "blue",
-                    backgroundColor: "rgba(0, 0, 255, 0.1)",
-                    tension: 0.3,  // smooth curves
-                    fill: true
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: { position: 'top' },
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: datasets
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: { stacked: true },
+          y: { stacked: true, beginAtZero: true }
+        },
+        plugins: {
+          tooltip: { mode: 'index', intersect: false },
+          legend: { position: 'top' }
+        }
+      }
+    });
 </script>
