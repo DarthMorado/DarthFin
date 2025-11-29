@@ -1,6 +1,112 @@
 ﻿@model FinEntriesListModel
 
-@foreach (var item in Model.FinEntries)
-{
-    <p>>Entry @item.Amount</p>
-}
+<div class="container mt-4">
+
+    <h3 class="mb-3">Financial Entries</h3>
+
+    <div class="list-group shadow-sm">
+
+        @foreach (var item in Model.FinEntries)
+        {
+            var modalId = $"categoryModal_{item.Id}";
+
+            <div class="list-group-item list-group-item-action py-3">
+                <div class="row align-items-center">
+
+                    <!-- Date -->
+                    <div class="col-md-2 fw-semibold">
+                        <i class="bi bi-calendar-event text-primary"></i>
+                        @item.RealDate?.ToShortDateString()
+                    </div>
+
+                    <!-- Correspondent -->
+                    <div class="col-md-3">
+                        <i class="bi bi-person-circle text-secondary"></i>
+                        @item.Correspondent
+                    </div>
+
+                    <!-- Information -->
+                    <div class="col-md-3">
+                        <i class="bi bi-person-circle text-secondary"></i>
+                        @item.Information
+                    </div>
+
+                    <!-- Category Button -->
+                    <div class="col-md-3">
+                        <button class="btn btn-success px-3 py-2"
+                                data-bs-toggle="modal"
+                                data-bs-target="#@modalId">
+                            <i class="bi bi-tag-fill"></i> Category
+                        </button>
+                    </div>
+
+                    <!-- Amount -->
+                    <div class="col-md-1 text-end fw-bold">
+                        <i class="bi bi-cash-coin text-warning"></i>
+                        @item.Amount?.ToString("C")
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="@modalId" tabindex="-1" aria-labelledby="CategoriesModal" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content shadow">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="CategoriesModal">Category Details</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="input-group mb-1">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Correspondent</span>
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="@item.Correspondent" />
+                            </div>
+                            <div class="input-group mb-1">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Information</span>
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="@item.Information" />
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">€</span>
+                                <span class="input-group-text">Amount range</span>
+                                <input type="text" aria-label="From" class="form-control">
+                                <input type="text" aria-label="To" class="form-control" value="@item.Amount" />
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default">Tag name</span>
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                                <select class="form-select" id="inputGroupSelect01">
+                                    <option selected>Color...</option>
+                                    <option value="1">Green</option>
+                                    <option value="2">Red</option>
+                                    <option value="3">Blue</option>
+                                    <option value="4">Purple</option>
+                                    <option value="5">Grey</option>
+                                    <option value="6">White</option>
+                                    <option value="7">Yellow</option>
+                                </select>
+                            </div>
+                           
+                            <hr />
+
+                            <p class="fw-semibold">Category Info:</p>
+                            <div class="alert alert-success">
+                                Here you can show category details or category selection.
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save Changes</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        }
+
+    </div>
+</div>
