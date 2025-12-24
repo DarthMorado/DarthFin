@@ -36,10 +36,10 @@ namespace DarthFin
             builder.WebHost.ConfigureKestrel(options =>
             {
                 options.ListenAnyIP(4200); // HTTP
-                options.ListenAnyIP(4201, listenOptions =>
-                {
-                    listenOptions.UseHttps();
-                });
+                //options.ListenAnyIP(4201, listenOptions =>
+                //{
+                //    listenOptions.UseHttps();
+                //});
             });
 
             var app = builder.Build();

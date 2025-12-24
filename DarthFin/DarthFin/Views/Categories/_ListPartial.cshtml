@@ -1,0 +1,13 @@
+﻿@model CategoriesListModel
+
+@if (Model?.Categories != null && Model.Categories.Any())
+{
+    <ul>
+        @foreach (var item in Model.Categories)
+        {
+            <partial name="_ListItemPartial" model="item" />
+        }
+    </ul>
+}
+
+

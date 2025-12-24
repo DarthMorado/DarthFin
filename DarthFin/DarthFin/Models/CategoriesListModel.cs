@@ -4,6 +4,6 @@ namespace DarthFin.Models
 {
     public class CategoriesListModel
     {
-        public List<CategoryDto> Categories { get; set; }
+        public List<CategoriesItemModel> Categories { get; set; }
     }
 }
