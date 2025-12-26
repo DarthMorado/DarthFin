@@ -4,6 +4,7 @@ using DarthFin.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DarthFin.DB.Migrations
 {
     [DbContext(typeof(Database))]
-    partial class DatabaseModelSnapshot : ModelSnapshot
+    [Migration("20251225234127_v.0.1.3")]
+    partial class v013
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -271,10 +274,8 @@ namespace DarthFin.DB.Migrations
             modelBuilder.Entity("DarthFin.DB.Entities.FinEntryEntity", b =>
                 {
                     b.HasOne("DarthFin.DB.Entities.CategoryEntity", "Category")
-                        .WithMany("Entries")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.SetNull)
-                        .HasConstraintName("FK_FIN_Entries_CAT_Categories");
+                        .WithMany()
+                        .HasForeignKey("CategoryId");
 
                     b.HasOne("DarthFin.DB.Entities.FileEntity", "FromFile")
                         .WithMany()
@@ -285,11 +286,6 @@ namespace DarthFin.DB.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("FromFile");
-                });
-
-            modelBuilder.Entity("DarthFin.DB.Entities.CategoryEntity", b =>
-                {
-                    b.Navigation("Entries");
                 });
 #pragma warning restore 612, 618
         }

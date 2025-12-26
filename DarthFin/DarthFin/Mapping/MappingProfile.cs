@@ -9,6 +9,9 @@ namespace DarthFin.Mapping
     {
         public MappingProfile()
         {
+            CreateMap<FilterDto, FilterEntity>();
+            CreateMap<FilterEntity, FilterDto>();
+
             CreateMap<UserDto, UserModel>();
             CreateMap<UserModel, UserDto>();
             CreateMap<UserDto, UserEntity>();

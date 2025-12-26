@@ -68,6 +68,7 @@ namespace DarthFin.Controllers
             return RedirectToAction("List");
         }
 
+        
         [HttpPost]
         public async Task<IActionResult> NewCategoryAsync(CancellationToken cancellationToken)
         {

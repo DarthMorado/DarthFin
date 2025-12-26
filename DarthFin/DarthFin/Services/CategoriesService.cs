@@ -11,6 +11,7 @@ namespace DarthFin.Services
         public Task<int> CreateCategory(CategoryDto category);
         public Task DeleteCategory(int id);
         public Task SaveCategory(CategoryDto category);
+        public Task<List<CategoryDto>> GetAllAsync();
     }
 
     public class CategoriesService : ICategoriesService
@@ -65,6 +66,12 @@ namespace DarthFin.Services
             var entity = _mapper.Map<CategoryEntity>(category);
             _repository.Update(entity);
             await _repository.SaveChangesAsync();
+        }
+
+        public async Task<List<CategoryDto>> GetAllAsync()
+        {
+            var entities = await _repository.GetAllAsync();
+            return entities.Select(x => _mapper.Map<CategoryDto>(x)).ToList();
         }
     }
 }

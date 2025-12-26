@@ -1,0 +1,36 @@
+﻿@using DarthFin.Dto
+@model FilterDto
+
+<form id="form-filter">
+    <div class="card w-auto">
+        <div class="input-group">
+            <span class="input-group-text">Correspondent: </span>
+            <input asp-for="Correspondent" class="form-control" />
+        </div>
+        <div class="input-group">
+            <span class="input-group-text">Info:</span>
+            <textarea asp-for="Information" class="form-control" ></textarea>
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-text">Amount:</span>
+            <input asp-for="AmountFrom" class="form-control" />
+            <input asp-for="AmountTill" class="form-control" />
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-text">Date:</span>
+            <input asp-for="DateFrom" class="form-control" />
+            <input asp-for="DateTill" class="form-control" />
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-text">Category:</span>
+            <select asp-for="CategoryId"
+                    asp-items="@(new SelectList(Model.Categories, "Id", "Name"))"
+                    class="form-select">
+                <option value="">-- select category --</option>
+            </select>
+        </div>
+    </div>
+</form>

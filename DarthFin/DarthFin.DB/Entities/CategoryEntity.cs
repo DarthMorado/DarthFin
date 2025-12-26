@@ -14,5 +14,8 @@ namespace DarthFin.DB.Entities
         public UserEntity? User { get; set; }
         [Column("CAT_USR_Id")]
         public int? UserId { get; set; }
+
+
+        public IEnumerable<FinEntryEntity> Entries { get; set; }
     }
 }

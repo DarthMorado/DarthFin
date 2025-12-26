@@ -79,18 +79,24 @@ namespace DarthFin
             services.AddScoped<IFilesService, FilesService>();
             services.AddScoped<ICategoriesService, CategoriesService>();
             services.AddScoped<IGraphService, GraphService>();
-            
+            services.AddScoped<IEntriesService, EntriesService>();
+            services.AddScoped<IFiltersService, FiltersService>();
+
         }
 
         public static void ConfigureDatabase(IServiceCollection services, IConfiguration config)
         {
             services.AddDbContext<Database>(options =>
-                options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
+                options
+                    .UseSqlServer(config.GetConnectionString("DefaultConnection"))
+                    .LogTo(Console.WriteLine, LogLevel.Information)
+                    .EnableSensitiveDataLogging()
+                );
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IFilesRepository, FilesRepository>();
-            services.AddScoped<IFinEntryRepository, FinEntryRepository>();
+            services.AddScoped<IFinEntryRepository, EntriesRepository>();
             services.AddScoped<ICategoriesRepository, CategoriesRepository>();
-
+            services.AddScoped<IFiltersRepository, FiltersRepository>();
         }
     }
 }

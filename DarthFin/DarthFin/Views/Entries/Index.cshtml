@@ -1,1 +1,108 @@
-﻿
+﻿@model EntriesSearchModel
+
+<form id="searchForm"
+      asp-action="Search" asp-controller="Entries"
+      methdt="post">
+    <div class="card p-1">
+        <div class="row">
+            <div class="col w-auto">
+                <div class="input-group">
+                    <span class="input-group-text">From</span>
+                    <input asp-for="DateFrom" class="form-control" />
+                    <span class="input-group-text">Till</span>
+                    <input asp-for="DateTill" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="mx-auto">
+            <button type="submit" class="btn btn-primary m-1 mb-0">Search</button>
+        </div>
+    </div>
+</form>
+
+<div id="searchResult"></div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.getElementById("searchForm");
+            const result = document.getElementById("searchResult");
+
+            if (!form) return;
+
+            form.addEventListener("submit", async function (e) {
+                e.preventDefault();
+
+                const response = await fetch(form.action, {
+                    method: "POST",
+                    body: new FormData(form),
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest"
+                    }
+                });
+
+                result.innerHTML = await response.text();
+            });
+        });
+    </script>
+    <script>
+        //Scripts for partial
+        $(document).on("click", ".btn-new-filter", function(){
+            var id = $(this).data("id");
+
+            $.ajax({
+                url: '@Url.Action("NewFilterModal", "Filters")',
+                type: 'GET',
+                data: {entryId: id},
+                success: function(result){
+                    $("#modalBody").html(result);
+
+                    // show modal
+                    var modal = new bootstrap.Modal(document.getElementById('filterModal'));
+                    modal.show();
+                },
+                error: function(){
+                    console.log("err");
+                }
+            });
+        });
+
+        $(document).on("click", "#btn-new-filter-save", function(){
+            console.log('save');
+            const form = document.getElementById("form-filter");
+            if (!form) return;
+
+            console.log(new FormData(form));
+
+            // const response = await fetch('@Url.Action("Create", "Filters")', {
+            //         method: "POST",
+            //         body: new FormData(form),
+            //         headers: {
+            //             "X-Requested-With": "XMLHttpRequest"
+            //         }
+            //     });
+
+            // var modal = new bootstrap.Modal(document.getElementById('filterModal'));
+            // console.log(modal);
+            // modal.hide();
+
+             $.ajax({
+                url: '@Url.Action("Create", "Filters")',
+                type: 'POST',
+                data: new FormData(form),
+                processData: false,
+                contentType: false,
+                success: function(result){
+                    console.log('success');
+                    // close modal
+                    bootstrap.Modal.getOrCreateInstance(
+                        document.getElementById('filterModal')
+                    ).hide();
+                },
+                error: function(){
+                    console.log("err");
+                }
+            });
+        });
+    </script>
+}

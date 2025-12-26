@@ -32,5 +32,11 @@ namespace DarthFin.DB.Entities
         public string? ExternalId { get; set; }
         [Column("FIN_Document_Number")]
         public string? DocumentNumber { get; set; }
+
+        public CategoryEntity? Category { get; set; }
+        [Column("FIN_CAT_Id")]
+        public int? CategoryId { get; set; }
+        [Column("FIN_FLT_Id")]
+        public int? FilterId { get; set; }
     }
 }

@@ -17,6 +17,8 @@ namespace DarthFin.DB
         public DbSet<FileEntity> Files { get; set; }
         public DbSet<CategoryEntity> Categories { get; set; }
         public DbSet<FinEntryEntity> FinEntries { get; set; }
+        public DbSet<FilterEntity> Filters { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -38,6 +40,17 @@ namespace DarthFin.DB
             modelBuilder.Entity<FinEntryEntity>()
                 .Property(e => e.Id)
                 .HasColumnName("FIN_ID");
+
+            modelBuilder.Entity<FilterEntity>()
+                .Property(e => e.Id)
+                .HasColumnName("FLT_ID");
+
+            modelBuilder.Entity<FinEntryEntity>()
+                .HasOne(e => e.Category)
+                .WithMany(c => c.Entries)
+                .HasForeignKey(e => e.CategoryId)
+                .HasConstraintName("FK_FIN_Entries_CAT_Categories")
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

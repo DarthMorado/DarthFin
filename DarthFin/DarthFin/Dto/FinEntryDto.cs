@@ -1,4 +1,7 @@
-﻿namespace DarthFin.Dto
+﻿using DarthFin.DB.Entities;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace DarthFin.Dto
 {
     public class FinEntryDto
     {
@@ -19,5 +22,9 @@
         public int UserId { get; set; }
         public string? ExternalId { get; set; }
         public string? DocumentNumber { get; set; }
+
+        public CategoryEntity? Category { get; set; }
+        public int? CategoryId { get; set; }
+        public bool IsManualCategory { get; set; }
     }
 }

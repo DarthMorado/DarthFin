@@ -4,6 +4,7 @@ using DarthFin.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DarthFin.DB.Migrations
 {
     [DbContext(typeof(Database))]
-    partial class DatabaseModelSnapshot : ModelSnapshot
+    [Migration("20251225163048_v.0.1.1")]
+    partial class v011
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,49 +90,6 @@ namespace DarthFin.DB.Migrations
                     b.ToTable("FIL_Files");
                 });
 
-            modelBuilder.Entity("DarthFin.DB.Entities.FilterEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("FLT_ID");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<double?>("AmountFrom")
-                        .HasColumnType("float")
-                        .HasColumnName("FLT_AmountFrom");
-
-                    b.Property<double?>("AmountTill")
-                        .HasColumnType("float")
-                        .HasColumnName("FLT_AmountTill");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Correspondent")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("FLT_Correspondent");
-
-                    b.Property<DateTime?>("DateFrom")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("FLT_DateFrom");
-
-                    b.Property<DateTime?>("DateTill")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("FLT_DateTill");
-
-                    b.Property<string>("Information")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("FLT_Information");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("FLT_FILTER");
-                });
-
             modelBuilder.Entity("DarthFin.DB.Entities.FinEntryEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -175,10 +135,6 @@ namespace DarthFin.DB.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("FIN_External_Id");
 
-                    b.Property<int?>("FilterId")
-                        .HasColumnType("int")
-                        .HasColumnName("FIN_FLT_Id");
-
                     b.Property<int>("FromFileId")
                         .HasColumnType("int")
                         .HasColumnName("FIN_FIL_Id");
@@ -190,6 +146,10 @@ namespace DarthFin.DB.Migrations
                     b.Property<bool?>("IsExpense")
                         .HasColumnType("bit")
                         .HasColumnName("FIN_Is_Expense");
+
+                    b.Property<bool>("IsManualCategory")
+                        .HasColumnType("bit")
+                        .HasColumnName("FIN_IS_CAT_Manual");
 
                     b.Property<DateTime?>("RealDate")
                         .HasColumnType("datetime2")
@@ -257,24 +217,11 @@ namespace DarthFin.DB.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("DarthFin.DB.Entities.FilterEntity", b =>
-                {
-                    b.HasOne("DarthFin.DB.Entities.CategoryEntity", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
             modelBuilder.Entity("DarthFin.DB.Entities.FinEntryEntity", b =>
                 {
                     b.HasOne("DarthFin.DB.Entities.CategoryEntity", "Category")
-                        .WithMany("Entries")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.SetNull)
-                        .HasConstraintName("FK_FIN_Entries_CAT_Categories");
+                        .WithMany()
+                        .HasForeignKey("CategoryId");
 
                     b.HasOne("DarthFin.DB.Entities.FileEntity", "FromFile")
                         .WithMany()
@@ -285,11 +232,6 @@ namespace DarthFin.DB.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("FromFile");
-                });
-
-            modelBuilder.Entity("DarthFin.DB.Entities.CategoryEntity", b =>
-                {
-                    b.Navigation("Entries");
                 });
 #pragma warning restore 612, 618
         }
